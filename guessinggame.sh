@@ -10,17 +10,22 @@ compare()  {
 fi
 	}
 
-Nfiles=`ls -1 | wc -l`
+Nfiles=`ls -A | wc -l`
+number='^-?[0-9]+([.][0-9]+)?$'
 
 while :
 do
-	echo "How many files are in this folder?"
+	echo "How many files are in this folder? (Only input integrer numbers, no spaces, no letters)"
 	read resp
-	if [[ $resp -eq $Nfiles ]];then
-		echo "There are $Nfiles files. Congrats!!!"
-		break
-	elif [ $resp -ne $Nfiles ];then
-		compare $resp $Nfiles
+	if [[ $resp =~ $number ]]; then
+		if [[ $resp -eq $Nfiles ]];then
+			echo "There are $Nfiles files. Congrats!!!"
+			break
+		elif [ $resp -ne $Nfiles ];then
+			compare $resp $Nfiles
+		fi
+	else
+		echo "$resp is not a number" 
 	fi
 done 
 
