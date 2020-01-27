@@ -11,7 +11,8 @@ fi
 	}
 
 Nfiles=`ls -A | wc -l`
-number='^-?[0-9]+([.][0-9]+)?$'
+number='^[0-9]+$'
+float='^[-]?[0-9]+\.?[0-9]*$'
 
 while :
 do
@@ -24,6 +25,8 @@ do
 		elif [ $resp -ne $Nfiles ];then
 			compare $resp $Nfiles
 		fi
+	elif [[ $resp =~ $float ]];then
+		echo 'The number is a float or a negative number, please introduce a positive integrer number'
 	else
 		echo "$resp is not a number" 
 	fi
